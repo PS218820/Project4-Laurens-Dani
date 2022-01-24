@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRole extends Model
+
+class Pizza extends Model
 {
-    use HasFactory;
+    protected $table = 'pizza';
     protected $fillable = [
-        'user_id',
-        'role_id'
+        'naam',
+        'beschrijving',
+        'ingredienten',
+        'prijs',
     ];
 }

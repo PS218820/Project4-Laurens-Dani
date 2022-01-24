@@ -4,7 +4,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SamenstellenController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +21,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home', function () {
+    return view('Homepage');
+});
+Route::get('/menu', function () {
+    return view('menu');
 });
 
 Route::group(['middleware'=>'auth'], function(){
@@ -30,10 +35,15 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/resetpassword/{id}', [AdminController::class, 'resetpassword'])->name('admin.resetpassword');
     Route::put('/admin/updatepassword/{id}', [AdminController::class, 'updatepassword'])->name('admin.updatepassword');
+    Route::get('/pizzas', [PizzaController::class, 'index'])->name('pizzas.index');
+    Route::get('/pizzas/{id}', [PizzaController::class, 'show'])->name('pizzas.details');
+    Route::get('/pizzas/{id}/samenstellen', [SamenstellenController::class, 'index'])->name('pizzas.samenstellen');
     Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);
     Route::resource('employee', EmployeeController::class);
     Route::resource('customer', CustomerController::class);
+    Route::resource('pizza', PizzaController::class);
+    
 });
 
 
