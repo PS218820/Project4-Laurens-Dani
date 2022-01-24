@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
+use App\Models\Pizza;
 use Illuminate\Http\Request;
 
 class SamenstellenController extends Controller
@@ -13,7 +15,7 @@ class SamenstellenController extends Controller
      */
     public function index()
     {
-        return view('pizzas.samenstellen', ['ingredienten' => Ingredienten::all()]);
+        return view('pizzas.samenstellen', ['ingredienten' => ingredient::all(), 'pizza' => pizza::all()]);
     }
 
     /**
