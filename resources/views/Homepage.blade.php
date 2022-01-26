@@ -1,147 +1,146 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Laravel</title>
-      <!-- Fonts -->
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-      <style>
-         body {
-         margin: 0;
-         font-family: Arial, Helvetica, sans-serif;
-         }
-         /*-----------------------------------------NAV------------------------------------------------*/
-        .sidenav {
-          height: 100%;
-          width: 200px;
-          position: fixed;
-          z-index: 1;
-          top: 0;
-          left: 0;
-          background-color: #111;
-          overflow-x: hidden;
-          padding-top: 20px;
-        }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
+</head>
+<body>
 
-        .sidenav a {
-          padding: 6px 6px 6px 32px;
-          text-decoration: none;
-          font-size: 25px;
-          color: #818181;
-          display: block;
-        }
+    <!-- Navigation -->
+    <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+        <div class="flex items-center">
+            <a href="/" class="h-4">Stonks Pizza</a>
+        </div>
+        <ul class="font-montserrat items-center hidden md:flex">
+            <li class="mx-3 ">
+                <a class="growing-underline" href="/menu">
+                    Menu
+                </a>
+            </li>
+            <li class="growing-underline mx-3">
+                <a href="/contact">Contact</a>
+            </li>
+            <li class="growing-underline mx-3">
+                <a href="/about">About</a>
+            </li>
+        </ul>
+        <div class="font-montserrat hidden md:block">
+            @if (Route::has('login'))
+                <div>
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="mr-6">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="mr-6">Log in</a>
 
-        .sidenav a:hover {
-          color: #f1f1f1;
-        }
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="py-2 px-4 text-white bg-black rounded-3xl">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+        </div>
+        <div id="showMenu" class="md:hidden">
+            <img src="{{URL::asset('/img/Menu.svg')}}" alt="Menu icon" />
+        </div>
+    </nav>
+    <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-white z-20 animate-fade-in-down">
+        <div id="hideMenu" class="flex justify-end">
+            <img src="{{URL::asset('/img/Cross.svg')}}" alt="" class="h-16 w-16" />
+        </div>
+        <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+            <li class="my-6">
+                <a href="/menu">Menu</a>
+            </li>
+            <li class="my-6">
+                <a href="/contact">Contact</a>
+            </li>
+            <li class="my-6">
+                <a href="about">About</a>
+            </li>
+        </ul>
+    </div>
 
-        .main {
-          margin-left: 200px; /* Same as the width of the sidenav */
-        }
-
-        @media screen and (max-height: 450px) {
-          .sidenav {padding-top: 15px;}
-          .sidenav a {font-size: 18px;}
-        }
-         /*----------------------------------FOOTER + PAGINARANDEN---------------------------------------------------*/
-         .box {
-         margin: 0;
-         padding: 5px;
-         background-color: lightgray;
-         }
-         footer {
-         text-align: center;
-         padding: 3px;
-         background-color: DarkSalmon;
-         color: white;
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         
-
-         
-         }
-         .header {
-         text-align: center;
-         font-size: 40px
-         }
-         /*-----------------------------------------GRID-----------------------------------------------------*/
-         .container {
-         background-color: beige;
-         min-width: 800px;
-         position: relative;
-         min-height: 100vh;
-         display: grid; 
-         grid-template-columns: 200px 20px 1fr 1fr 20px; 
-         grid-template-rows: 0.2fr 1.8fr 2.5rem; 
-         gap: 0px 0px; 
-         grid-template-areas: 
-    "logo div2 div2 div2 div2"
-    "div1 . div4 div5 ."
-    "div1 div3 div3 div3 div3"; 
-}
-   .div1 { grid-area: logo; }
-   .div1 { grid-area: div1; }
-   .div2 { grid-area: div2; background-color: gray; border-bottom: black; border-bottom-style: solid}
-   .div3 { grid-area: div3; }
-   .div4 { grid-area: div4; background-color:rgba(255, 255, 255, 0.5);}
-   .div5 { grid-area: div5; background-color:rgba(255, 255, 255, 0.5)}
-
-
-      </style>
-   </head>
-   <body>
-
-
-      
-      <div class="container">
-         <div class="div1">
-            <div class="sidenav">
-               <a class="active" href="{{ url('/home') }}">Home</a>
-               <a href="{{ url('/menu') }}">Menu</a>
-               <a href="#contact">Contact</a>
-               <a href="#about">About</a>
-               <div class="rightfloat">
-                  @if (Route::has('login'))
-                  <div >
-                     @auth
-                     <a href="{{ url('/dashboard') }}" >Dashboard</a>
-                     @else
-                     <a href="{{ route('login') }}" >Log in</a>
-                     @if (Route::has('register'))
-                     <a href="{{ route('register') }}" >Register</a>
-                     @endif
-                     @endauth
-                  </div>
-                  @endif
-               </div>
-            </div>
-         </div>
-
-         <div class="div2">
-            <h1 class="header"> Homepagina</h1>
-         </div>
-
-         <div class="div4">
-            <br>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat perferendis quisquam quia quod dolorem aliquam pariatur deserunt quasi aperiam a necessitatibus nam quae rem rerum, sapiente fuga. Aspernatur, soluta!
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus ipsa assumenda id molestias obcaecati aliquid necessitatibus rem recusandae maiores vero inventore aperiam odio nisi optio repellendus, nulla voluptates porro impedit.
-               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione optio nesciunt explicabo soluta dignissimos amet perferendis quidem porro necessitatibus dolores eaque sapiente corporis adipisci qui, tempore, rem autem molestias voluptatem!
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus numquam labore magnam voluptas. Voluptate dolor fugiat illum. Ut eaque quibusdam voluptas accusantium quos explicabo reiciendis excepturi temporibus ducimus voluptate. Incidunt!
-         </div>
-
-         <div class="div5">
-            <br>
-            <img width="70%" src="{{URL::asset('/img/pizza.jpg')}}" alt="Italian Trulli">
-         </div>
-      </div>
-         <footer class="div3">
-            <p>Blabla
-               <br>
-               <a href="mailto:stonkspizza@gmail.com">stonkspizza@gmail.com</a>
+    <!-- Hero -->
+    <section
+        class="pt-24 md:mt-0 md:h-screen flex flex-col justify-center text-center md:text-left md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
+        <div class="md:flex-1 md:mr-10">
+            <h1 class="font-pt-serif text-5xl font-bold mb-7">
+                De beste pizza in Eindhoven.
+            </h1>
+            <p class="font-pt-serif font-normal mb-7">
+                U bent van harte welkom om onze versgebakken pizza's in ons restaurant in Eindhoven te proeven!
             </p>
-         </footer>
-      </div>
-   </body>
+            <div class="font-montserrat">
+                <a href="/menu" class="bg-black px-6 py-4 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2">
+                    Bekijk ons Menu!
+                </a>
+            </div>
+        </div>
+        <div class="flex justify-around md:block mt-8 md:mt-0 md:flex-1">
+            <img src="{{URL::asset('/img/Pizza.png')}}" alt="Pizza" />
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="bg-black sectionSize">
+        <div class="mb-4">
+            <p class="h-4">Stonks Pizza</p>
+        </div>
+        <div class="flex mb-8">
+            <a href="#">
+                <img src="{{URL::asset('/img/Facebook.svg')}}" alt="Facebook logo" class="mx-4" />
+            </a>
+            <a href="#">
+                <img src="{{URL::asset('/img/Youtube.svg')}}" alt="Youtube logo" class="mx-4" />
+            </a>
+            <a href="#">
+                <img src="{{URL::asset('/img/Instagram.svg')}}" alt="Instagram logo" class="mx-4" />
+            </a>
+            <a href="#">
+                <img src="{{URL::asset('/img/Twitter.svg')}}" alt="Twitter logo" class="mx-4" />
+            </a>
+        </div>
+        <div class="text-white font-montserrat text-sm">
+            © 2021 STONKS PIZZA
+        </div>
+    </section>
+<script>
+    window.addEventListener("load", function () {
+        console.log(document.querySelector("#showMenu"));
+        document
+            .querySelector("#showMenu")
+            .addEventListener("click", function (event) {
+                document.querySelector("#mobileNav").classList.remove("hidden");
+            });
+
+        document
+            .querySelector("#hideMenu")
+            .addEventListener("click", function (event) {
+                document.querySelector("#mobileNav").classList.add("hidden");
+            });
+
+        document.querySelectorAll("[toggleElement]").forEach((toggle) => {
+            toggle.addEventListener("click", function (event) {
+                console.log(toggle);
+                const answerElement = toggle.querySelector("[answer]");
+                const caretElement = toggle.querySelector("img");
+                console.log(answerElement);
+                if (answerElement.classList.contains("hidden")) {
+                    answerElement.classList.remove("hidden");
+                    caretElement.classList.add("rotate-90");
+                } else {
+                    answerElement.classList.add("hidden");
+                    caretElement.classList.remove("rotate-90");
+                }
+            });
+        });
+    });
+
+</script>
+</body>
 </html>
