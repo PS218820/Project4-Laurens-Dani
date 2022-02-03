@@ -2,17 +2,16 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Menu</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
 </head>
 <body>
-
 <!-- Navigation -->
-<nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+<nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10 bg-white">
     <div class="flex items-center">
         <a href="/" class="h-4">Stonks Pizza</a>
     </div>
@@ -70,27 +69,23 @@
             <a href="/contact">Contact</a>
         </li>
         <li class="my-6">
-            <a href="about">About</a>
+            <a href="/about">About</a>
         </li>
     </ul>
 </div>
-
-<!-- Hero -->
 <section
-    class="pt-24 md:mt-0 md:h-screen flex flex-col justify-center text-center md:text-left md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
-    <div class="flex justify-around md:block mt-8 md:mt-0 md:flex-1">
-        <img src="{{URL::asset('/img/BakkerAbout.png')}}" alt="Pizza Bakker" />
-    </div>
+    class="pt-24 md:mt-0 md:h-screen flex flex-col justify-center text-center md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
     <div class="md:flex-1 md:mr-10">
         <h1 class="font-pt-serif text-5xl font-bold mb-7">
-            Alles over ons.
+            @yield('title')
         </h1>
         <p class="font-pt-serif font-normal mb-7">
-            Wij zijn een pizza restaurant in hartje Eindhoven met een gezellige sfeer. Verse pizza staat op nummer 1 bij ons! Onze pizza mario komt oorspronkelijk uit italie
-            en bakt zijn pizza's op de originele manier
+            @yield('undertitle')
         </p>
     </div>
 </section>
+
+@yield('content')
 
 <!-- Footer -->
 <section class="bg-black sectionSize">
@@ -112,7 +107,7 @@
         </a>
     </div>
     <div class="text-white font-montserrat text-sm">
-        © 2021 STONKS PIZZA
+        © 2022 STONKS PIZZA
     </div>
 </section>
 <script>

@@ -15,4 +15,9 @@ class Pizza extends Model
         'ingredienten',
         'prijs',
     ];
+
+    public function bestellingen()
+    {
+        return $this->hasOne(Bestellingen::class);
+    }
 }

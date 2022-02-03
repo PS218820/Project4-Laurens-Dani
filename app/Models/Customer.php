@@ -10,4 +10,14 @@ class Customer extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function bestellingen()
+    {
+        return $this->hasMany(Bestellingen::class);
+    }
+
+    public function Winkelwagen()
+    {
+        return $this->hasone(Winkelwagen::class);
+    }
 }
